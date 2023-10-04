@@ -1,7 +1,4 @@
 package WebScraping;
-
-
-import javax.swing.text.Document;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -50,8 +47,7 @@ public class bagOfWords {
     public double TF(String value, HT hashtable) {
         int size = hashtable.getTotalsize();
         int frequency = hashtable.find(value);
-        double tf = (double) frequency / size;
-        return tf;
+        return (double) frequency / size;
     }
 
     public double IDF(String value,ArrayList<HT> hts){
@@ -61,8 +57,7 @@ public class bagOfWords {
                 x += 1;
             }
         }
-        double y = (double) (Math.log(hts.size()/x));
-        return y;
+        return  (double) (Math.log(hts.size()/x));
     }
 
 }

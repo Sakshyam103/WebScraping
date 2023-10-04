@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.logging.Handler;
 
 public class Main {
+    private static JFrame frame;
+    private static JPanel allPanels;
+    public static String[] strings = new String[2];
     private String url;
     public static JSoup jSoup;
     public static ArrayList<String> jSoups = new ArrayList<>();
-    private static String value = JOptionPane.showInputDialog(null, "Please Enter the url:");
+  //  private static String value = JOptionPane.showInputDialog(null, "Please Enter the url:");
 
     public static void main(String[] args) throws IOException {
         SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -29,23 +32,38 @@ public class Main {
             //parse the file
             URL sxp = new URL();
             SaxParser.parse(input, sxp);
-            jSoups.add(value);
+            frame = new JFrame("Web Scraping");
+            frame.setResizable(false);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            allPanels = new JPanel();
+            allPanels.add(new GUI());
+
+            frame.getContentPane().add(allPanels);
+            frame.pack();
+            frame.setVisible(true);
+     //       GUI x = new GUI();
+      //      jSoups.add(x.value);
             for (String url : sxp.getUrls()) {
                 if(url!=null){
                     jSoups.add(url);
                 }
             }
+
             jSoup = new JSoup(jSoups);
             jSoup.getDocument();
             index = jSoup.value;
             for(int i=0; i < index.length; i++){
-                System.out.println(sxp.getUrls()[index[i]]);
+                strings[i]=sxp.getUrls()[index[i]];
             }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
+    }
+    public String[] getText(){
+        return strings;
     }
 }
 
